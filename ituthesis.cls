@@ -2,7 +2,7 @@
 \ProvidesClass{ituthesis}[2012/09/06 A document class for IT University of Copenhagen theses and reports]
 
 %% This document class is based on memoir
-\LoadClass[a4paper, showtrims, 12pt, twoside, openright, onecolumn, final]{memoir}
+\LoadClass[a4paper, showtrims, 12pt, oneside, openright, onecolumn, final]{memoir}
 
 \RequirePackage[danish,english]{babel}
 
@@ -62,7 +62,7 @@
 %\renewcommand*\sfdefault{uop}
 
 % Luxi Mono is an attractive typewriter font with bold and italic
-\usepackage[scaled]{luximono}
+%\usepackage[scaled]{luximono}
 
 %% Abstract sans serif
 \renewcommand{\abstractnamefont}{\Large\sffamily}
@@ -97,7 +97,7 @@
   \renewcommand{\afterchaptertitle}{\par\nobreak \vskip 15pt \small \normalfont\sffamily{\ori \vskip 3pt \joi} \vskip \afterchapskip \global\let\theorigin\relax \global\let\thejoint\relax}
 }
 
-\chapterstyle{ituchapter} % try also: default , section , hangnum , companion , article, demo
+\chapterstyle{section} % try also: default , section , hangnum , companion , article, demo
 
 % do not draw a line to separate footnotes, instead use more spacing
 \renewcommand*{\footnoterule}{\vskip 10pt}
@@ -141,8 +141,8 @@
 \setlength{\linespace}{\baselineskip}
 
 % no page number on chapter and part page!
-\aliaspagestyle{chapter}{empty}
-\aliaspagestyle{part}{empty}
+%\aliaspagestyle{chapter}{empty}
+%\aliaspagestyle{part}{empty}
 
 %%%% for the title page and approval page.
 \newlength{\toptafiddle}
@@ -156,6 +156,7 @@
 
 % your title
 \newcommand{\settitle}[1]{\def\itutitle{#1}}
+\newcommand{\setsubtitle}[1]{\def\itusubtitle{#1}}
 % you
 \newcommand{\setauthor}[1]{\def\ituauthor{#1}}
 % your supervisor
@@ -167,7 +168,7 @@
 \makeatletter
 \def\sups{\iflanguage{danish}%
   {Vejleder\@ifundefined{itusupervisorextra}{}{e}}%
-  {Advisor\@ifundefined{itusupervisorextra}{}{s}}%
+  {Supervisor\@ifundefined{itusupervisorextra}{}{s}}%
 }
 \def\extrasup{\@ifundefined{itusupervisorextra}{}{\iflanguage{danish}{ og}{ and} \itusupervisorextra}}
 \makeatother
@@ -180,7 +181,10 @@
     \node[align=center,font=\sffamily\Huge] (title) at (0, 3cm){
       \itutitle
     };
-    \node[align=center,font=\sffamily\Large] (author) at (0, 1cm){
+    \node[align=center,font=\sffamily\Large] (title) at (0, 2cm){
+      \itusubtitle
+    };
+    \node[align=center,font=\sffamily\Large] (author) at (0, 0cm){
       \ituauthor
     };
   \end{tikzpicture}

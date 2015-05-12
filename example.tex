@@ -1,10 +1,11 @@
 \documentclass{ituthesis}
 
-\settitle{Towards a PhD for Fun and Profit}
-\setauthor{Nestor Makhno}
-\setsupervisor{Mikhail Bakunin}
-\setextrasupervisor{Emma Goldman}
-\setdate{December 1917}
+\settitle{Automating Deployments in Mobile App Development}
+\setsubtitle{Advanced Software Engineering (F2015)}
+\setauthor{Kristian S. M. Andersen}
+\setsupervisor{Yvonne Dittrich}
+% \setextrasupervisor{Emma Goldman}
+\setdate{May 13, 2015}
 
 \begin{document}
 %\selectlanguage{danish}
@@ -12,42 +13,107 @@
 \frontmatter
 
 \thetitlepage
-\newpage
 
 \chapter*{Abstract}
 This is an abstract
 
-\cleardoublepage
+\clearpage
 \setcounter{tocdepth}{1}
-\tableofcontents
+% \tableofcontents
 
 \mainmatter
 
-%from memoir documentation:
-%TeX tries very hard to keep text lines justified while keeping the interword spacing as constant as possible, but sometimes fails and complains about an overfull hbox.
-%The default mode for LaTeX typesetting is \fussy where the (variation of) interword spacing in justified text is kept to a minimum. Following the \sloppy declaration there may be a much looser setting of justified text.
-%Additionally the class provides the \midsloppy declaration which allows a setting somewhere between \fussy and \sloppy.
-%fewer overfull lines than \fussy, and fewer obvious large interword spacing than with \sloppy.
-%the memoir manual also uses \midsloppy!
 \midsloppy
-% try harder to avoid widows and orphans
 \sloppybottom
 
 \chapter{Introduction}
-Introductionary material
 
-\originally{History of the Makhnovist Movement; 1923}
-\joint{Peter Arshinov}
-\chapter{Something in Between}
-Somewhere at sometime...
+In the development of large scale web-infrastructures it is common to use Continous Delivery techniques to facilitate small rapid development cycles. These techniques are not as wildely adopted when it comes to smaller products such as Apps installed on mobile devices. Many of the challenges are the same though the tools differ a bit.\\
 
-\joint{Emma Goldman}
-\chapter{At the Same Time Somewhere Else}
-... happened something else
+I work in a small danish company that develops Apps for the iPhone and iPad. The company has 17 Apps in production which is developed and mainted by 7 developers. Most of the apps in production needs both weekly and daily builds. This constitutes a problem since every app has a different build process and none of the processes are automated. A build can take anything from 10 minutes to 2 hours.\cite{Humble2006}
 
-\originally{My autobiography; 1934}
+\subsection{Definitions}
+
+\begin{description}
+\item[Continous Integration] The practice of merging all developer working copies of a project into a mainline as first proposed by Grady Booch.
+\item[Continous Delivery] The process of delivering a software product directly to the customer in small rapid software development cycles.
+\item[Apps] Applications developed for mobile devices such as the iPhone or iPad.
+\end{description}
+
+\subsection{Structure of the Paper}
+
+In section 2 I will further refine the problem and highight three key aspects that needs to be adresses by the solution. In section 3 I will relate the problem to the literature around the subject. In section 4 I will propose a solution to solve the problem. In section 5 I describe how to evaluate the proposed solution against the problem. Finally in section 6 I will reflect on and conclude the paper.
+
+\chapter{Refine the problem}
+
+I work in a small company, called Robocat, where we develop Apps for iOS and Mac OS X. We have around 17 actively maintained products which are developed by 7 developers. At any given moment each developer may be involved with 2 or 3 different products. Each week the entire team and any potential clients needs to receive a weekly build of the updated products. Builds are also requested ad-hoc several times during the week. This is a process that usually takes between 10 minutes to 2 hours depending on the product. It is all done manually.\\
+
+This constitutes a problem for many different reasons. We will outline the different aspects of the problem here.
+
+\section{Build Documentation \& Streamlining}
+
+As mentioned earlier the company has 17 active apps currently in production. All these 17 products are actively maintained and require several updates every year just for maintanence. The most problemtatic issue is that every product has a seperate build process. All products are build with the same tools provided by Apple but the individual build stepds for each app differ in subtle ways. They have wildely differnet environment variables, runtime setups, libraries, etc. Some apps depend on many 3rd party libraries that needs to be updated with each new build. This means there is absolutely no streamlining of the build process. Each app is build seperately in differnt ways. \\
+
+To make matters worse there is seldomly any documentation available in the projects for how to build and deploy the apps. Important knowledge pertaining to individual build steps for products often resides with the lead developer of a product. If the developer is sick or on vacation the build may take longer to produce or can't be produced at all. 
+
+\section{Deployments break the workflow}
+
+Builds can take a lot of time to produce. Some apps only take 10 minutes to build and deploy while others can take several hours. Some apps are build once a month while others are build and deployed daily. Every time an app needs a new build it requires that a developer steps away from what they is currently working on to produce a build. These interruptions are annoying for the developer and degrades the productivity of the team. Even more so when frequent builds are requested by a customer.
+
+% Also delays other processes down the line
+
+\section{The consequences of faulty builds}
+
+Due to the way the App Store on iOS works, bad deployments have much greater consequences than other deployments like web services. Once a build is ready for production it needs to be submitted to Apple for review. This process takes an average of 6-9 days but sometimes take as longs as 3 weeks. Once Apple has reviewed the app it is either released into production or rejected (in which case a new build must be submitted). After an app is released into production it cannot be rolled back. If an app with severe defects is rolled into production they only thing that can be done is submit a new build and wait through app review once again.\\
+
+This aspect severely amplifies the problem that there is no streamlimed and/or documented process around building and depoying apps into production. It also contributes to a great deal of developer anxiety around deploying apps into production.
+
+\chapter{Literature Review}
+
+In \textit{Continuous Delivery: Huge Benefits, but Challenges Too} \cite{Chen2015}, Chen covers the implementation of Continous Delivery (CD) techniques at a large organization, the huge benefits and challenges involved. By implementing CD \cite{Chen2015} experienced accelerated time to market with more frequent releases, faster and more usable user feedback, improved productivity and effiency among developers, more reliable releases and decreased anxiety around production releases.\\
+
+Osterweil \cite{Osterweil1997} describes in his article \textit{Processes are Software too} how humans have an innate facility for indirect problem solving through process specification. He suggest that we not only document our processes through process descriptions but also program them and use them directly as software.\\
+
+Much in the way that Osterweil describes it, CD as a field has turned to scripting languages, which specify our build and deployment proceses to automate these proccesses.\\
+
+Humble, Read and North describes in \cite{Humble2006} how to fully automate the testing and deployment process by using a multi-stage automated workflow. They note many of the same issues that are expirenced by Robocat like lack of documentation around deployments.\\
+
+``[...] often the documentation is incomplete or out-of-date. In some cases, the information needed to deploy resides in the heads of several key members of staff who need to come together to perform the deployment.'' \cite{Humble2006} \\
+
+\cite{Humble2006} enumerates 4 key principles and some practices they motivate in oder to adress the most common challenges facing automation of the build and deployment process.\\
+
+\chapter{Proposed Solution: Continous Delivery}
+
+Motivated by Osterweil \cite{Osterweil1997} I have identified a solution that through process descriptions used as software aims to automate the build and deployment process.\\
+
+Continous Delivery (CD) is a software engineering approach in which the software development team keeps producing software in short cycles and ensure that the software can be reliably released at any time. 
+
+A three-fold solution.
+
+First part is to streamline and document build processes.
+Second part is to automate build procsses and deployments.
+Third part is to auto-trigger weekly and daily builds.
+
+
+
+At least build automation and documentation. In more general use Continous Delivery techniques. Automate builds interely. Let the be invokable manually and automate weekly builds. Possibly use continous integration techniques to verify the validity of builds before deploying to the app store. Less developer anxiety and more confidence.
+
+Quantative measuring development hours lost/gained. Qualatative interviews with developers and team leaders.
+
+\section{Using fastlane.tools}
+
+fastlane.tools is an Open Source suite of development tools to automate builds and deployments for iOS. \cite{Krause2015}
+
+\chapter{Evaluation}
+
+There are several things that can be measured. Number of bad builds deployed into production. Number of development hours used for manual deploymenets vs. number of development hours used for setting up automated builds + invoking builds. In the qualitative department there is developer satisfaction in terms of fewer disruptions in dev workflow. 
+
 \chapter{Conclusion}
-Finished
+
+\clearpage
+\bibliographystyle{acm-sigchi}
+\renewcommand{\bibname}{References}
+\bibliography{example}
 
 
 \end{document}
