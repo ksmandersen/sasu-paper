@@ -1,5 +1,7 @@
 \documentclass{ituthesis}
 
+\usepackage{hyperref}
+
 \settitle{Automating Deployments in Mobile App Development}
 \setsubtitle{Advanced Software Engineering (F2015)}
 \setauthor{Kristian S. M. Andersen}
@@ -28,9 +30,16 @@ This is an abstract
 
 \chapter{Introduction}
 
+In the early spring of 2001 Kent Beck and 16 other software developers signed the Agile Manifesto \cite{beck2001agile}. The manifesto consists of 12 principles that lays the foundation of agile development methods. The first principle the manifesto says:\\
+
+``Our highest priority is to satisfy the customer through early and continuous delivery
+of valuable software.'' \cite{beck2001agile}\\
+
+Now more than 10 years later many compaines adopt many the concepts from agile development and even claim to be agile. Still many of these companies have yet to adopt the first principle.\\
+
 In the development of large scale web-infrastructures it is common to use Continous Delivery techniques to facilitate small rapid development cycles. These techniques are not as wildely adopted when it comes to smaller products such as Apps installed on mobile devices. Many of the challenges are the same though the tools differ a bit.\\
 
-I work in a small danish company that develops Apps for the iPhone and iPad. The company has 17 Apps in production which is developed and mainted by 7 developers. Most of the apps in production needs both weekly and daily builds. This constitutes a problem since every app has a different build process and none of the processes are automated. A build can take anything from 10 minutes to 2 hours.\cite{Humble2006}
+I work in a small danish company that develops Apps for the iPhone and iPad. The company has 17 Apps in production which is developed and mainted by 7 developers. Most of the apps in production needs both weekly and daily builds. This constitutes a problem since every app has a different build process and none of the processes are automated. A build can take anything from 10 minutes to 2 hours. \cite{Humble2006}
 
 \subsection{Definitions}
 
@@ -86,7 +95,12 @@ Humble, Read and North describes in \cite{Humble2006} how to fully automate the 
 
 Motivated by Osterweil \cite{Osterweil1997} I have identified a solution that through process descriptions used as software aims to automate the build and deployment process.\\
 
-Continous Delivery (CD) is a software engineering approach in which a software development team keeps producing software in short cycles and ensure that the software can be reliably released at any time. 
+Continous Delivery (CD) is a software engineering approach in which a software development team keeps producing software in short cycles and ensure that the software can be reliably released at any time.\\
+
+
+CD as a term is relatively new. The first appearances in litterature is by \cite{Humble2006} in 2006. Since then the term has gained a lot of traction and has become increasingly popular among developers of web infrastructures where deployments can be delivered to customers in matters of minutes or even seconds. Although popular in web development, CD has not gotten the same amount of traction among mobile development where deployments take longer. The benefits remian largely the same. However it seems the tools are not as widespread or mature for this platform.\\
+
+In \autoref{sec:using_fastlane} I will give an example of a newer tool that has the required traction and maturaty required.
 
 % Explain that is a term incapsulating several different key aspects.
 % It is realtively new in software development
@@ -106,25 +120,26 @@ The second and most important part of implementing CD is to automate the process
 
 The practice is commonly used in web architectures because changes can be instantly deployed to users withing minutes or even seconds. In app development for Apple's platform this is not the case. % talk about app review
 
-\section{Continous Integration}
+% \section{Continous Integration}
 
-- Automating build steps to produce binaries
-- Automating deployments to deliver software
-- Running integration testing (Continous Integraton)
+% - Automating build steps to produce binaries
+% - Automating deployments to deliver software
+% - Running integration testing (Continous Integraton)
 
-A three-fold solution.
+% A three-fold solution.
 
-First part is to streamline and document build processes.
-Second part is to automate build procsses and deployments.
-Third part is to auto-trigger weekly and daily builds.
+% First part is to streamline and document build processes.
+% Second part is to automate build procsses and deployments.
+% Third part is to auto-trigger weekly and daily builds.
 
 
 
-At least build automation and documentation. In more general use Continous Delivery techniques. Automate builds interely. Let the be invokable manually and automate weekly builds. Possibly use continous integration techniques to verify the validity of builds before deploying to the app store. Less developer anxiety and more confidence.
+% At least build automation and documentation. In more general use Continous Delivery techniques. Automate builds interely. Let the be invokable manually and automate weekly builds. Possibly use continous integration techniques to verify the validity of builds before deploying to the app store. Less developer anxiety and more confidence.
 
-Quantative measuring development hours lost/gained. Qualatative interviews with developers and team leaders.
+% Quantative measuring development hours lost/gained. Qualatative interviews with developers and team leaders.
 
 \section{Using Fastlane}
+\label{sec:using_fastlane}
 
 Fastlane is an Open Source suite of development tools to automate builds and deployments for iOS \cite{Krause2015}. It provides all the tools needed for building, provisioning and deploying iOS apps right from the developers command line. The tools are configured as build processes in a ruby DSL. All developers on the team share the configuration and can all build, provision and deploy with the same tool. The tool can also be configured to run on a build server and run on a schedule for automated weekly and daily builds.\\
 
@@ -140,7 +155,10 @@ There are several things that can be measured. Number of bad builds deployed int
 
 \clearpage
 \bibliographystyle{acm-sigchi}
-\renewcommand{\bibname}{References}
+% \renewcommand{\bibname}{References}
+\nocite{Humble2010}
+\nocite{Bellomo2014}
+\nocite{beck2001agile}
 \bibliography{example}
 
 
