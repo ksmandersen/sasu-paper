@@ -124,9 +124,13 @@ At least build automation and documentation. In more general use Continous Deliv
 
 Quantative measuring development hours lost/gained. Qualatative interviews with developers and team leaders.
 
-\section{Using fastlane.tools}
+\section{Using Fastlane}
 
-fastlane.tools is an Open Source suite of development tools to automate builds and deployments for iOS \cite{Krause2015}. It provides all the tools needed for building, provisioning and deploying iOS apps right from the developers command line. The tools are configured as build processes in a ruby DSL. All developers on the team share the configuration and can all build, provision and deploy with the same tool. The tool can also be configured to run on a build server and run on a schedule for automated weekly and daily builds. 
+Fastlane is an Open Source suite of development tools to automate builds and deployments for iOS \cite{Krause2015}. It provides all the tools needed for building, provisioning and deploying iOS apps right from the developers command line. The tools are configured as build processes in a ruby DSL. All developers on the team share the configuration and can all build, provision and deploy with the same tool. The tool can also be configured to run on a build server and run on a schedule for automated weekly and daily builds.\\
+
+The tool has many different integrations for external services that may be used by different apps, like Crashreporting, beta builds through 3rd parties. Custom integrations can even be build and the entire source code is open source and small so it can be modified if necessary.\\
+
+Fastlane neatly fits the needs of automation of builds and deployments needed by Robocat. It has also the necessary components to configure automation for all team members and automatic weekly builds. It is my recommendation to integrate this tool into the development workflow of the team.
 
 \chapter{Evaluation}
 
