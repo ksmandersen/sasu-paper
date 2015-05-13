@@ -145,7 +145,7 @@ Fastlane neatly fits the needs of automation of builds and deployments needed by
 \chapter{Evaluation}
 \label{ch:evaluation}
 
-
+The evaluation of the implementation of CD in the company would be mainly quantitative. In the following list I outline five identified metrics and how they should be recorded:
 
 \begin{itemize}
 	\item \textbf{Number of hours spent on manual builds \& deployments}: This is not a current metric, but it could be measured prior to implementation by self reporting from the developers.
@@ -154,6 +154,18 @@ Fastlane neatly fits the needs of automation of builds and deployments needed by
 	\item \textbf{Number of regressions found in production}: All bugs found in production are recorded in a bug tracker. Bugs that were fixed earlier are already marked as regressions. Nothing should change about how this metric is quanified.
 	\item \textbf{Anxiety around production deployments among developers}: This qualitative measure could be quantified by asking developers how anxious they feel about production deployments on scale. They should be asked both prior to implementation and some amount of time after.
 \end{itemize}
+
+Given that the all the proposed metrics are qunatifiable it helps that at least three of them have prior data that can be compared against to see if there is any measurable improvements.
+
+\section{Expected Outcome}
+
+Given the implementation of Continous Delivery in at least some of the actively maintained products I expect to see improvements to several metrics.\\
+
+Initially there will an increased number of hours spent configuring and setting up CD in the selected products. After the setup there should be an immediate sharp drop-off in the number of hours spent on manual builds and deployments. This decrease in hours spent will increase the effectiveness and productivity of the team which should hopefully icnrease the number of beta and production deployments that gets produced.\\
+
+Given the implementation of Continous Integration methods in some products that should be a decrease in the number of regressions found in production. This decrease will however only apply to products where new tests are created to prevent regressions.\\
+
+Lastly given that all builds and deployments are performed automatically and the system performs well and as deployments are reliable developers should start feeling less anxious about production deployments.
 
 \chapter{Conclusion}
 \label{ch:conclusion}
