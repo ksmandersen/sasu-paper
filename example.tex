@@ -55,41 +55,45 @@ In section 2 I will further refine the problem and highight three key aspects th
 
 \chapter{Refine the problem}
 
-I work in a small company, called Robocat, where we develop Apps for iOS and Mac OS X. We have around 17 actively maintained products which are developed by 7 developers. At any given moment each developer may be involved with 2 or 3 different products. Each week the entire team and any potential clients needs to receive a weekly build of the updated products. Builds are also requested ad-hoc several times during the week. This is a process that usually takes between 10 minutes to 2 hours depending on the product. It is all done manually.\\
+I work in a small company, called Robocat, where we develop Apps for iOS and Mac OS X. We have around 17 actively maintained products which are developed by 7 developers. At any given moment each developer may be involved with 2 or 3 different products. Each week the entire team and any potential clients needs to receive a weekly build of the updated products. Builds are also requested ad-hoc several times during the week. Producing a new build and deploying it for test is a process that usually takes between 10 minutes to 2 hours depending on the product. It can in some cases take even more time. Everything in the build process an deployment is done manually.\\
 
-This constitutes a problem for many different reasons. We will outline the different aspects of the problem here.
+This constitutes a problem for many different reasons. In the following sections I will present the problematic symptoms of this manual process.
 
 \section{Build Documentation \& Streamlining}
 
-As mentioned earlier the company has 17 active apps currently in production. All these 17 products are actively maintained and require several updates every year just for maintanence. The most problemtatic issue is that every product has a seperate build process. All products are build with the same tools provided by Apple but the individual build stepds for each app differ in subtle ways. They have wildely differnet environment variables, runtime setups, libraries, etc. Some apps depend on many 3rd party libraries that needs to be updated with each new build. This means there is absolutely no streamlining of the build process. Each app is build seperately in differnt ways. \\
+As mentioned earlier Robocat has 17 active apps currently in production. All these apps are actively maintained and require at least several updates every year just for maintanence. The most problemtatic issue is that every product has a seperate build process. All products are build with the same tools provided by Apple but the individual build steps for each app differ in subtle ways. They have wildely differnet environment variables, runtime setups, libraries, etc. Some apps depend on many 3rd party libraries that needs to be updated with each new build. This means there is absolutely no streamlining of the build process. Each app is build separately in different ways. \\
 
-To make matters worse there is seldomly any documentation available in the projects for how to build and deploy the apps. Important knowledge pertaining to individual build steps for products often resides with the lead developer of a product. If the developer is sick or on vacation the build may take longer to produce or can't be produced at all. 
+To make matters worse there is seldomly any documentation available in the projects for how to build and deploy the apps. Important knowledge pertaining to individual build steps for products often resides with the lead developer of a product. If the developer is sick or on vacation the build may take longer to produce or can't be produced at all. This is especially problematic if an important bugfix update needs to be shipped to customers.  
 
 \section{Deployments break the workflow}
 
-Builds can take a lot of time to produce. Some apps only take 10 minutes to build and deploy while others can take several hours. Some apps are build once a month while others are build and deployed daily. Every time an app needs a new build it requires that a developer steps away from what they is currently working on to produce a build. These interruptions are annoying for the developer and degrades the productivity of the team. Even more so when frequent builds are requested by a customer.
+Builds can take a lot of time to produce. Some apps only take 10 minutes to build and deploy while others can take several hours. Some apps are build once a month while others are build and deployed daily. Every time an app needs a new build it requires that a developer steps away from what they is currently working on to produce a build. These interruptions are annoying for the developer and degrades the productivity of the team. Even more so when frequent builds are requested by a customer.\\
 
-% Also delays other processes down the line
+Every time a developer is forced to step away from a project to prouce a build he looses valuable development time and he looses his focus. But it doesn't just affect the development immediately, it also delays other processes further down the line. If interruptions are frequent to a key member of the team, the development can easily stall for periods of time.
 
 \section{The consequences of faulty builds}
 
-Due to the way the App Store on iOS works, bad deployments have much greater consequences than other deployments like web services. Once a build is ready for production it needs to be submitted to Apple for review. This process takes an average of 6-9 days but sometimes take as longs as 3 weeks. Once Apple has reviewed the app it is either released into production or rejected (in which case a new build must be submitted). After an app is released into production it cannot be rolled back. If an app with severe defects is rolled into production they only thing that can be done is submit a new build and wait through app review once again.\\
+Due to the way the App Store on iOS works, bad deployments can have greater consequences than other deployments like web services. Once a build is ready for production it needs to be submitted to Apple for review. This process takes an average of 6-9 days but sometimes take as longs as 3 weeks. Once Apple has reviewed the app it is either released into production or rejected (in which case a new build must be submitted). After an app is released into production it cannot be rolled back. If an app with severe defects is rolled into production the only thing that can be done is to submit a new build and wait through app review once again. If the bug in production is big enough it could mean big losses of revenue.\\
 
-This aspect severely amplifies the problem that there is no streamlimed and/or documented process around building and depoying apps into production. It also contributes to a great deal of developer anxiety around deploying apps into production.
+A developer can request an expidted review from Apple if a problem is severe enough. Such reviews are granted only once or twice a year for each developer and must be requested with care. If the expidited review is granted the review process is shortened to 1-2 days. Losses in revenue can however still be big.\\
+
+This aspect severely amplifies the problem that there is no streamlimed and/or documented process around building and depoying apps into production. It also contributes to a great deal of developer anxiety around deploying apps into production. No one wants to be the developer ultimately responsible for deploying a critical bug into production.
 
 \chapter{Literature Review}
 
-In \textit{Continuous Delivery: Huge Benefits, but Challenges Too} \cite{Chen2015}, Chen covers the implementation of Continous Delivery (CD) techniques at a large organization, the huge benefits and challenges involved. By implementing CD \cite{Chen2015} experienced accelerated time to market with more frequent releases, faster and more usable user feedback, improved productivity and effiency among developers, more reliable releases and decreased anxiety around production releases.\\
+Suprinsingly enough there is not a big amount of litterature around the automation of the early development steps in the build process or deployments.\\
 
 Osterweil \cite{Osterweil1997} describes in his article \textit{Processes are Software too} how humans have an innate facility for indirect problem solving through process specification. He suggest that we not only document our processes through process descriptions but also program them and use them directly as software.\\
 
-Much in the way that Osterweil describes it, CD as a field has turned to scripting languages, which specify our build and deployment proceses to automate these proccesses.\\
-
-Humble, Read and North describes in \cite{Humble2006} how to fully automate the testing and deployment process by using a multi-stage automated workflow. They note many of the same issues that are expirenced by Robocat like lack of documentation around deployments.\\
+In the most referenced article from the CD field, \textit{The deployment production line} \cite{Humble2006}, Humble et al describes in how to fully automate the testing and deployment process by using a multi-stage automated workflow. They note many of the same issues that are expirenced by Robocat like lack of documentation around deployments.\\
 
 ``[...] often the documentation is incomplete or out-of-date. In some cases, the information needed to deploy resides in the heads of several key members of staff who need to come together to perform the deployment.'' \cite{Humble2006} \\
 
 \cite{Humble2006} enumerates 4 key principles and some practices they motivate in oder to adress the most common challenges facing automation of the build and deployment process.\\
+
+In the article \textit{Continuous Delivery: Huge Benefits, but Challenges Too} \cite{Chen2015}, Chen covers the implementation of Continous Delivery (CD) techniques at a large organization, the huge benefits and challenges involved. By implementing CD \cite{Chen2015} experienced accelerated time to market with more frequent releases, faster and more usable user feedback, improved productivity and effiency among developers, more reliable releases and decreased anxiety around production releases.\\
+
+% Much in the way that Osterweil describes it, CD as a field has turned to scripting languages, which specify our build and deployment proceses to automate these proccesses.\\
 
 \chapter{Proposed Solution: Continous Delivery}
 
