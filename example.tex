@@ -54,6 +54,7 @@ I work in a small danish company that develops Apps for the iPhone and iPad. The
 In section 2 I will further refine the problem and highight three key aspects that needs to be adresses by the solution. In section 3 I will relate the problem to the literature around the subject. In section 4 I will propose a solution to solve the problem. In section 5 I describe how to evaluate the proposed solution against the problem. Finally in section 6 I will reflect on and conclude the paper.
 
 \chapter{Refine the problem}
+\label{ch:refine_the_problem}
 
 I work in a small company, called Robocat, where we develop Apps for iOS and Mac OS X. We have around 17 actively maintained products which are developed by 7 developers. At any given moment each developer may be involved with 2 or 3 different products. Each week the entire team and any potential clients needs to receive a weekly build of the updated products. Builds are also requested ad-hoc several times during the week. Producing a new build and deploying it for test is a process that usually takes between 10 minutes to 2 hours depending on the product. It can in some cases take even more time. Everything in the build process an deployment is done manually.\\
 
@@ -85,13 +86,15 @@ Suprinsingly enough there is not a big amount of litterature around the automati
 
 Osterweil \cite{Osterweil1997} describes in his article \textit{Processes are Software too} how humans have an innate facility for indirect problem solving through process specification. He suggest that we not only document our processes through process descriptions but also program them and use them directly as software.\\
 
-In the most referenced article from the CD field, \textit{The deployment production line} \cite{Humble2006}, Humble et al describes in how to fully automate the testing and deployment process by using a multi-stage automated workflow. They note many of the same issues that are expirenced by Robocat like lack of documentation around deployments.\\
+In the most referenced article from the Continous Delivery field, \textit{The deployment production line} \cite{Humble2006}, Humble et al. describes how to fully automate the testing and deployment process by using a multi-stage automated workflow. They note many of the same issues that are expirenced by Robocat like lack of documentation around deployments.\\
 
-``[...] often the documentation is incomplete or out-of-date. In some cases, the information needed to deploy resides in the heads of several key members of staff who need to come together to perform the deployment.'' \cite{Humble2006} \\
+``[...] often the documentation is incomplete or out-of-date. In some cases, the information needed to deploy resides in the heads of several key members of staff who need to come together to perform the deployment.'' \cite{Humble2006}\\
 
-\cite{Humble2006} enumerates 4 key principles and some practices they motivate in oder to adress the most common challenges facing automation of the build and deployment process.\\
+In the article Humble et al. enumerates 4 key principles and some practices they motivate in oder to adress the most common challenges facing automation of the build and deployment process.\\
 
-In the article \textit{Continuous Delivery: Huge Benefits, but Challenges Too} \cite{Chen2015}, Chen covers the implementation of Continous Delivery (CD) techniques at a large organization, the huge benefits and challenges involved. By implementing CD \cite{Chen2015} experienced accelerated time to market with more frequent releases, faster and more usable user feedback, improved productivity and effiency among developers, more reliable releases and decreased anxiety around production releases.\\
+Humble, together with Farley, 4 years later wrote the book \textit{Continuous Delivery} \cite{Humble2010}. In this book they describe all details needed to automate all parts of deployment including risk management strategies. More of the same symptoms described in the \autoref{ch:refine_the_problem} are found to be the same by Humble and Farley. The build processes take too long and are mostly performed entirely manually. Build and deployment processes are vastly undocumented and key developers have the necessary knowledge. Developers are nervous on release day because it is easy to make mistakes in the manual processes.\\
+
+In the article \textit{Continuous Delivery: Huge Benefits, but Challenges Too} \cite{Chen2015}, Chen covers the implementation of Continous Delivery techniques at a large organization, the huge benefits and challenges involved. By implementing Continous Delivery \cite{Chen2015} experienced accelerated time to market with more frequent releases, faster and more usable user feedback, improved productivity and effiency among developers, more reliable releases and decreased anxiety around production releases.\\
 
 % Much in the way that Osterweil describes it, CD as a field has turned to scripting languages, which specify our build and deployment proceses to automate these proccesses.\\
 
@@ -99,8 +102,7 @@ In the article \textit{Continuous Delivery: Huge Benefits, but Challenges Too} \
 
 Motivated by Osterweil \cite{Osterweil1997} I have identified a solution that through process descriptions used as software aims to automate the build and deployment process.\\
 
-Continous Delivery (CD) is a software engineering approach in which a software development team keeps producing software in short cycles and ensure that the software can be reliably released at any time.\\
-
+Continous Delivery (CD) is a software engineering approach in which a software development team keeps producing software in short cycles and ensure that the software can be reliably released at any time. \cite{Chen2015}\\
 
 CD as a term is relatively new. The first appearances in litterature is by \cite{Humble2006} in 2006. Since then the term has gained a lot of traction and has become increasingly popular among developers of web infrastructures where deployments can be delivered to customers in matters of minutes or even seconds. Although popular in web development, CD has not gotten the same amount of traction among mobile development where deployments take longer. The benefits remian largely the same. However it seems the tools are not as widespread or mature for this platform.\\
 
@@ -124,7 +126,13 @@ The second and most important part of implementing CD is to automate the process
 
 The practice is commonly used in web architectures because changes can be instantly deployed to users withing minutes or even seconds. In app development for Apple's platform this is not the case. % talk about app review
 
-% \section{Continous Integration}
+\section{Continous Integration}
+
+CD is often coupled with another term called Continous Integration (CI). In short CI is the process of running tests in the produced software in all stages of the its lifecycle. Most commonly it is used such that all tests run whenever a new version of the code is checked in to source control. The tests will then run to make sure that everything builds properly and check that there we no regressions in the new code. It is recommended that CI is part of your CD pipeline \cite{Humble2010} \cite{Chen2015}.\\
+
+Could be an essential tool in making sure that regressions dont make it to prouction.
+At least to have minimum validation that the app is functioning before it is submitted.
+Takes a bit more effort to keep up.
 
 % - Automating build steps to produce binaries
 % - Automating deployments to deliver software
