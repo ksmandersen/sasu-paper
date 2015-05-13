@@ -41,17 +41,17 @@ In the development of large scale web-infrastructures it is common to use Contin
 
 I work in a small danish company that develops Apps for the iPhone and iPad. The company has 17 Apps in production which is developed and mainted by 7 developers. Most of the apps in production needs both weekly and daily builds. This constitutes a problem since every app has a different build process and none of the processes are automated. A build can take anything from 10 minutes to 2 hours. \cite{Humble2006}
 
-\subsection{Definitions}
+% \subsection{Definitions}
 
-\begin{description}
-\item[Continous Integration] The practice of merging all developer working copies of a project into a mainline as first proposed by Grady Booch.
-\item[Continous Delivery] The process of delivering a software product directly to the customer in small rapid software development cycles.
-\item[Apps] Applications developed for mobile devices such as the iPhone or iPad.
-\end{description}
+% \begin{description}
+% \item[Continous Integration] The practice of merging all developer working copies of a project into a mainline as first proposed by Grady Booch.
+% \item[Continous Delivery] The process of delivering a software product directly to the customer in small rapid software development cycles.
+% \item[App] Application developed for mobile devices such as the iPhone or iPad.
+% \end{description}
 
-\subsection{Structure of the Paper}
+\section{Structure of the Paper}
 
-In section 2 I will further refine the problem and highight three key aspects that needs to be adresses by the solution. In section 3 I will relate the problem to the literature around the subject. In section 4 I will propose a solution to solve the problem. In section 5 I describe how to evaluate the proposed solution against the problem. Finally in section 6 I will reflect on and conclude the paper.
+In \autoref{ch:refine_the_problem} I will further refine the problem and highight three key aspects that needs to be adresses by the solution. In \autoref{ch:literature_review} I will relate the problem to the literature around the subject. In \autoref{ch:proposed_solution} I will propose a solution to solve the problem. In \autoref{ch:evaluation} I describe how to evaluate the proposed solution against the problem. Finally in \autoref{ch:conclusion} I will reflect on and conclude the paper.
 
 \chapter{Refine the problem}
 \label{ch:refine_the_problem}
@@ -73,6 +73,7 @@ Builds can take a lot of time to produce. Some apps only take 10 minutes to buil
 Every time a developer is forced to step away from a project to prouce a build he looses valuable development time and he looses his focus. But it doesn't just affect the development immediately, it also delays other processes further down the line. If interruptions are frequent to a key member of the team, the development can easily stall for periods of time.
 
 \section{The consequences of faulty builds}
+\label{sec:consequences_of_faulty_builds}
 
 Due to the way the App Store on iOS works, bad deployments can have greater consequences than other deployments like web services. Once a build is ready for production it needs to be submitted to Apple for review. This process takes an average of 6-9 days but sometimes take as longs as 3 weeks. Once Apple has reviewed the app it is either released into production or rejected (in which case a new build must be submitted). After an app is released into production it cannot be rolled back. If an app with severe defects is rolled into production the only thing that can be done is to submit a new build and wait through app review once again. If the bug in production is big enough it could mean big losses of revenue.\\
 
@@ -81,6 +82,7 @@ A developer can request an expidted review from Apple if a problem is severe eno
 This aspect severely amplifies the problem that there is no streamlimed and/or documented process around building and depoying apps into production. It also contributes to a great deal of developer anxiety around deploying apps into production. No one wants to be the developer ultimately responsible for deploying a critical bug into production.
 
 \chapter{Literature Review}
+\label{ch:literature_review}
 
 Suprinsingly enough there is not a big amount of litterature around the automation of the early development steps in the build process or deployments.\\
 
@@ -99,20 +101,15 @@ In the article \textit{Continuous Delivery: Huge Benefits, but Challenges Too} \
 % Much in the way that Osterweil describes it, CD as a field has turned to scripting languages, which specify our build and deployment proceses to automate these proccesses.\\
 
 \chapter{Proposed Solution: Continous Delivery}
+\label{ch:proposed_solution}
 
 Motivated by Osterweil \cite{Osterweil1997} I have identified a solution that through process descriptions used as software aims to automate the build and deployment process.\\
 
 Continous Delivery (CD) is a software engineering approach in which a software development team keeps producing software in short cycles and ensure that the software can be reliably released at any time. \cite{Chen2015}\\
 
-CD as a term is relatively new. The first appearances in litterature is by \cite{Humble2006} in 2006. Since then the term has gained a lot of traction and has become increasingly popular among developers of web infrastructures where deployments can be delivered to customers in matters of minutes or even seconds. Although popular in web development, CD has not gotten the same amount of traction among mobile development where deployments take longer. The benefits remian largely the same. However it seems the tools are not as widespread or mature for this platform.\\
+CD as a term is relatively new. The first appearances in litterature is by \cite{beck2001agile} in 2001. Since then the term has gained a lot of traction and has become increasingly popular among developers of web infrastructures where deployments can be delivered to customers in matters of minutes or even seconds. Although popular in web development, CD has not gotten the same amount of traction among mobile development where deployments take longer. The benefits remian largely the same. However it seems the tools are not as widespread or mature for this platform.\\
 
-In \autoref{sec:using_fastlane} I will give an example of a newer tool that has the required traction and maturaty required.
-
-% Explain that is a term incapsulating several different key aspects.
-% It is realtively new in software development
-% It is very popular in the web-infrastructure world
-% Not very popular in mobile app development
-% mention that we will point to a specific implementation in a later section
+In \autoref{sec:using_fastlane} I will give an example of a newer tool that has the required traction and maturaty required.ection
 
 \section{Automating Builds}
 
@@ -122,33 +119,19 @@ It does however take some effort to automate the build process. The cost of impl
 
 \section{Automating Deployments}
 
-The second and most important part of implementing CD is to automate the process of delivering software. The steps involved in this part of the process varies somewhat depending on the software type and obviously how it is deployed to customer.\\
+The second and most important part of implementing CD is to automate the process of delivering software. This part is one the four key principles presented by Humble et al. \cite{Humble2006}. The steps involved in this part of the process varies somewhat depending on the software type and obviously how it is deployed to customer.\\
 
-The practice is commonly used in web architectures because changes can be instantly deployed to users withing minutes or even seconds. In app development for Apple's platform this is not the case. % talk about app review
+The practice is commonly used in web architectures because changes can be instantly deployed to users withing minutes or even seconds. In app development for Apple's platform this is not the case. As mentioned in \autoref{sec:consequences_of_faulty_builds} deployments to Apple's platform on iOS has to go through a submission process at Apple. Each new build of an app must be reviewed by Apple in a process that takes times. The process of the submission process has a lot of steps where the app must be build and validated in Apple's infrastructure called iTunes Connect. After the app is submitted, screenshots, descriptions, links, promotional material, pricing schemes and more must be manually updated and verified. All of these steps can also be automated to minify the risk of human error.\\
+
+Deployments of iOS apps are also perfomed elsehwere than Apple's platform. All weekly and ad-hoc builds of an app are deployed to a third-party service that allows beta testers to install the app on their device. This is the tool used for all internal testing and preview to the external customers. The process of deploying these builds is also manually but can be automated the same way it could be for iTunes Connect.
 
 \section{Continous Integration}
 
-CD is often coupled with another term called Continous Integration (CI). In short CI is the process of running tests in the produced software in all stages of the its lifecycle. Most commonly it is used such that all tests run whenever a new version of the code is checked in to source control. The tests will then run to make sure that everything builds properly and check that there we no regressions in the new code. It is recommended that CI is part of your CD pipeline \cite{Humble2010} \cite{Chen2015}.\\
+CD is often coupled with another term called Continous Integration (CI). In short CI is the process of running tests on the produced software in all stages of the its lifecycle. Most commonly it is used such that all tests run whenever a new version of the code is checked in to source control. The tests will then run to make sure that everything builds properly and check that there we no regressions in the new code. It is recommended that CI is part of your CD pipeline \cite{Humble2010} \cite{Chen2015}.\\
 
-Could be an essential tool in making sure that regressions dont make it to prouction.
-At least to have minimum validation that the app is functioning before it is submitted.
-Takes a bit more effort to keep up.
+In the case of Robocat it could be an essential part of making sure that no serious bugs made it into production. This part of CD is probably the most time consuming since it requires a concious effort by all developers to create integration tests to cover the products. This part of the process could be slowly incorporated such that when a bug is found a new test is created to make sure it gets fixed and is not re-introduced into production.\\
 
-% - Automating build steps to produce binaries
-% - Automating deployments to deliver software
-% - Running integration testing (Continous Integraton)
-
-% A three-fold solution.
-
-% First part is to streamline and document build processes.
-% Second part is to automate build procsses and deployments.
-% Third part is to auto-trigger weekly and daily builds.
-
-
-
-% At least build automation and documentation. In more general use Continous Delivery techniques. Automate builds interely. Let the be invokable manually and automate weekly builds. Possibly use continous integration techniques to verify the validity of builds before deploying to the app store. Less developer anxiety and more confidence.
-
-% Quantative measuring development hours lost/gained. Qualatative interviews with developers and team leaders.
+At the very least some kind of automated tests should be in place to make sure the app runs as minimum validation before a deployment to production.
 
 \section{Using Fastlane}
 \label{sec:using_fastlane}
@@ -160,10 +143,20 @@ The tool has many different integrations for external services that may be used 
 Fastlane neatly fits the needs of automation of builds and deployments needed by Robocat. It has also the necessary components to configure automation for all team members and automatic weekly builds. It is my recommendation to integrate this tool into the development workflow of the team.
 
 \chapter{Evaluation}
+\label{ch:evaluation}
 
-There are several things that can be measured. Number of bad builds deployed into production. Number of development hours used for manual deploymenets vs. number of development hours used for setting up automated builds + invoking builds. In the qualitative department there is developer satisfaction in terms of fewer disruptions in dev workflow. 
+
+
+\begin{itemize}
+	\item \textbf{Number of hours spent on manual builds \& deployments}: This is not a current metric, but it could be measured prior to implementation by self reporting from the developers.
+	\item \textbf{Number of hours spent on configuring CD}: This metric should be implemented as a self-reporting mechanism by developers to figure out the cost/gain of implementing CD in terms of hours.
+	\item \textbf{Number of beta \& production deployments}: All deployments are recorded through a tracking interface that is also used for analytics data.
+	\item \textbf{Number of regressions found in production}: All bugs found in production are recorded in a bug tracker. Bugs that were fixed earlier are already marked as regressions. Nothing should change about how this metric is quanified.
+	\item \textbf{Anxiety around production deployments among developers}: This qualitative measure could be quantified by asking developers how anxious they feel about production deployments on scale. They should be asked both prior to implementation and some amount of time after.
+\end{itemize}
 
 \chapter{Conclusion}
+\label{ch:conclusion}
 
 \clearpage
 \bibliographystyle{acm-sigchi}
